@@ -51,6 +51,7 @@ const Title = styled.h1`
 
 const OrdersList = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   align-items: center;
 `;
