@@ -4,6 +4,8 @@ import App from "../App";
 import AboutPage from "../pages/AboutPage";
 import MyOrdersPage from "../pages/MyOrdersPage";
 import ProductsPage from "../pages/ProductsPage";
+import ProductDetailsPage from "../pages/ProductDetailsPage";
+import OrdersDetails from "../pages/OrdersDetails";
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +25,16 @@ export const router = createBrowserRouter([
         element: <MyOrdersPage />,
       },
       {
+        path: "orders/:orderId",
+        element: <OrdersDetails />,
+      },
+      {
         path: "products",
         element: <ProductsPage />,
+      },
+      {
+        path: "products/:productId",
+        element: <ProductDetailsPage />,
       },
     ],
   },

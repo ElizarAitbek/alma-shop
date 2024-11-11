@@ -1,38 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-
-const DUMMY_ORDERS = [
-  {
-    id: "1",
-    product: "iPhone 15",
-    date: "2024-10-15",
-    status: "Жеткирилди",
-    total: 999,
-  },
-  {
-    id: "2",
-    product: "MacBook Air M2",
-    date: "2024-09-10",
-    status: "Жөнөтүлдү",
-    total: 1199,
-  },
-  {
-    id: "3",
-    product: "Apple Watch Series 9",
-    date: "2024-08-25",
-    status: "Жеткирилди",
-    total: 399,
-  },
-  {
-    id: "4",
-    product: "AirPods Pro (2nd generation)",
-    date: "2024-07-12",
-    status: "Артка кайтарылды",
-    total: 249,
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { DUMMY_ORDERS } from "../utils/constants";
 
 export default function MyOrdersPage() {
+  const navigate = useNavigate();
+
+  const handleDetailClick = (orderId) => {
+    navigate(`/orders/${orderId}`);
+  };
+
   return (
     <OrdersContainer>
       <Title>Менин Буйрутмаларым</Title>
@@ -44,6 +21,9 @@ export default function MyOrdersPage() {
               <OrderDate>Дата: {order.date}</OrderDate>
               <OrderStatus status={order.status}>{order.status}</OrderStatus>
               <OrderTotal>Total: ${order.total}</OrderTotal>
+              <DetailButton onClick={() => handleDetailClick(order.id)}>
+                Кененирээк маалымат
+              </DetailButton>
             </OrderDetails>
           </OrderCard>
         ))}
@@ -56,7 +36,9 @@ const OrdersContainer = styled.div`
   background-color: #f9f9f9;
   color: #333;
   padding: 40px 20px;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.h1`
@@ -69,43 +51,42 @@ const Title = styled.h1`
 
 const OrdersList = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 20px;
+  align-items: center;
 `;
 
 const OrderCard = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 30px;
+  width: 500px;
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 `;
 
 const ProductName = styled.h2`
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 600;
   color: #333;
+  margin-bottom: 10px;
 `;
 
 const OrderDetails = styled.div`
-  text-align: right;
+  text-align: left;
 `;
 
 const OrderDate = styled.p`
   font-size: 1rem;
   color: #666;
+  margin-bottom: 6px;
 `;
 
 const OrderStatus = styled.p`
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: ${(props) =>
     props.status === "Жеткирилди"
@@ -115,11 +96,28 @@ const OrderStatus = styled.p`
       : props.status === "Артка кайтарылды"
       ? "red"
       : "#666"};
+  margin-bottom: 6px;
 `;
 
 const OrderTotal = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #333;
-  margin-top: 8px;
+  margin-bottom: 10px;
+`;
+
+const DetailButton = styled.button`
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #007aff;
+  background-color: transparent;
+  border: 1px solid #007aff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #007aff;
+    color: #fff;
+  }
 `;
